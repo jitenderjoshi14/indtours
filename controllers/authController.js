@@ -141,7 +141,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 2) Generate the random reset token
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
-  console.log('are we entering here');
+  //console.log('are we entering here');
   //deactivate all validators in our schema that are required for a post request (to save the expired time and encrypted reset token in schema)
 
   // 3) Send it to user's email
@@ -149,7 +149,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     'host'
   )}/api/v1/users/resetPassword/${resetToken}`;
 
-  console.log(resetURL, 'resetURL');
+  //console.log(resetURL, 'resetURL');
 
   const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
 

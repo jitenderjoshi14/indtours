@@ -8,7 +8,7 @@ const helmet = require('helmet');
 const mongoSanatize = require('express-mongo-sanitize');
 const XSS = require('xss-clean');
 const hpp = require('hpp');
-
+const compression = require('compression');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
@@ -66,6 +66,8 @@ app.use(
   })
 );
 
+app.use(compression()); //only works for text
+
 // app.use((req, res, next) => {
 //   // console.log('hello from middleware');
 //   next(); //should be included to complete the req res cycle
@@ -96,12 +98,3 @@ app.use(globalErrorHandler);
 
 module.exports = app;
 
-// app.get('/api/v1/tours', getAllTours);
-
-// app.get('/api/v1/tours/:id', getTour);
-
-// app.post('/api/v1/tours', createTour);
-
-// app.patch('/api/v1/tours/:id', updateTour);
-
-// app.delete('/api/v1/tours/:id', deleteTour);

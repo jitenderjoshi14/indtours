@@ -14,7 +14,7 @@ const handleJWTExpiredError = () =>
 const handleDuplicateFieldsDB = err => {
   // console.log(err, 'this is the err');
   const value = err.keyValue.email;
-  console.log(value);
+ // console.log(value);
 
   const message = `Duplicate field value: ${value}, Please use another value!`;
   return new AppError(message, 400);
@@ -35,7 +35,7 @@ const sendErrorDev = (err, res) => {
 };
 
 const sendErrorProd = (err, res) => {
-  console.log(err);
+  //console.log(err);
   // Operational, trusted error: send message to client
   if (err.isOperational) {
     res.status(err.statusCode).json({
@@ -67,8 +67,6 @@ module.exports = (err, req, res, next) => {
     sendErrorDev(err, res);
   } else if (process.env.NODE_ENV === 'production') {
     let error = { ...err };
-    console.log(err, 'this is the error that I am getting');
-
     if (error.name === 'CastError') error = handleCastErrorDB(error);
     if (error.code === 11000) error = handleDuplicateFieldsDB(error);
     if (error.name === 'ValidationError')
